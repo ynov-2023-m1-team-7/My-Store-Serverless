@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  file_compression
+
+  Sample SAM Template for file_compression
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+    MemorySize: 128
+
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: my-bucket
+      AccessControl: PublicRead  # Adjust access control as needed
+
+  FileUploadFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: file_upload/
+      Handler: app.file_upload
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      Events:
+        FileUpload:
+          Type: Api
+          Properties:
+            Path: /file/upload
+            Method: post
+
+Outputs:
+  MyS3BucketOutput:
+    Description: "S3 Bucket Name"
+    Value: !Ref MyS3Bucket
+
+  FileUploadApi:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+  FileUploadFunction:
+    Description: "Hello World Lambda Function ARN"
+    Value: !GetAtt FileUploadFunction.Arn
+  FileUploadFunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt FileUploadFunctionRole.Arn
