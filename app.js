@@ -11,8 +11,10 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-exports.sendEmail = async (nom, prenom, email) => {
+exports.sendEmail = async (data) => { // Recevoir les données en un seul objet (par exemple : { nom, prenom, email })
   try {
+    const { nom, prenom, email } = data; // Extraire les données
+
     const mailOptions = {
       from: email,
       to: process.env.ADMIN_EMAIL,
@@ -31,11 +33,6 @@ exports.sendEmail = async (nom, prenom, email) => {
     throw new Error('Erreur lors de l\'envoi de l\'e-mail');
   }
 };
-
-
-
-
-
 
 
 // /**
