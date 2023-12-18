@@ -12,18 +12,14 @@ Globals:
     MemorySize: 128
 
 Resources:
-  MyS3Bucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: my-bucket
-      AccessControl: PublicRead  # Adjust access control as needed
-
   FileUploadFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: file_upload/
+      CodeUri: FileUploadFunction/
       Handler: app.file_upload
       Runtime: python3.9
+      Timeout: 10
+      Role: arn:aws:iam::561468252899:role/Lambda_upload
       Architectures:
         - x86_64
       Events:
