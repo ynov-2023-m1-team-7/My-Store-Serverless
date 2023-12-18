@@ -45,7 +45,6 @@ def lambda_handler(event, context):
             
             try :
                 s3 = boto3.client('s3')
-                # s3.put_object(Body=file_content, Bucket="my-bucket", Key=file_name)
                 if (is_image(file_content)):
                     # If the file is an image, réencode it in webp format
                     try:
