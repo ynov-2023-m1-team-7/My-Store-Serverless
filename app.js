@@ -37,7 +37,7 @@ exports.sendEmail = async (data) => {
       body: JSON.stringify(emailData)
     };
 
-    const endpoint = 'http://api.brevosoftware.com/email/send';
+    const endpoint = 'https://api.brevo.com/v3/smtp/email';
 
     const response = await fetch(endpoint, requestOptions);
     const result = await response.json();
