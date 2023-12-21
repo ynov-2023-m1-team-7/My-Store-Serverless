@@ -32,7 +32,7 @@ exports.sendEmail = async (data) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${API_KEY}`
+        'api-key': API_KEY
       },
       body: JSON.stringify(emailData)
     };
